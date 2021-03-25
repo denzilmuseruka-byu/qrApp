@@ -48,7 +48,6 @@ public MainAdapter(Activity activity, ArrayList<ContactModel> arrayList){
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView tvName,tvNumber;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

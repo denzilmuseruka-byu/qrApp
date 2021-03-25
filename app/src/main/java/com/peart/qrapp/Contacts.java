@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class Contacts extends AppCompatActivity {
+
  // initialize variable
     RecyclerView recyclerView;
     ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();
@@ -51,7 +52,7 @@ public class Contacts extends AppCompatActivity {
         // initialize uri
         Uri uri = ContactsContract.Contacts.CONTENT_URI;
         // sort by ascending
-        String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+"ASC";
+        String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" ASC";
         // Initialize cursor
         Cursor cursor = getContentResolver().query(uri,null,null,null,sort);
 
@@ -70,7 +71,7 @@ public class Contacts extends AppCompatActivity {
                 // initialize phone uri
                 Uri uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
                 // initialize selection
-                String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+" =?";
+                String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " =?";
                 // initialize phone cursor
                 Cursor phoneCursor = getContentResolver().query(uriPhone,null,selection,new String[]{id},null);
 
