@@ -32,8 +32,8 @@ public class MyContactInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!name.getText().toString().isEmpty() && (!email.getText().toString().isEmpty() || !phone.getText().toString().isEmpty())){
-                    Intent intent = new Intent(Intent.ACTION_INSERT);
-                    intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+                    Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+                    intent.setType(ContactsContract.RawContacts.CONTENT_ITEM_TYPE);
                     intent.putExtra(ContactsContract.Intents.Insert.NAME,name.getText().toString());
                     intent.putExtra(ContactsContract.Intents.Insert.EMAIL,email.getText().toString());
                     intent.putExtra(ContactsContract.Intents.Insert.PHONE,phone.getText().toString());
