@@ -19,7 +19,7 @@ import static android.content.ClipData.newIntent;
 
 public class MainActivity extends AppCompatActivity {
     EditText qrvalue;
-    Button generateBtn, scanBtn, contactsBtn;
+    Button generateBtn,myContactInfo, scanBtn, contactsBtn;
     ImageView qrImage;
 
     @Override
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         scanBtn = findViewById(R.id.scanBtn);
         qrImage = findViewById(R.id.qrPlaceHolder);
         contactsBtn = findViewById(R.id.contactsBtn);
+        myContactInfo = findViewById(R.id.myContactBtn);
 
         generateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Contacts.class));
+            }
+        });
+
+        myContactInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MyContactInfo.class));
             }
         });
 
