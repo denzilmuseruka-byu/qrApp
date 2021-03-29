@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".Contacts">
 
 
@@ -10,6 +11,8 @@
      android:id="@+id/recycler_view"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
+     android:clipToPadding="false"
      android:visibility="visible"
      tools:listitem="@layout/item_contact" />
+
 </RelativeLayout>
