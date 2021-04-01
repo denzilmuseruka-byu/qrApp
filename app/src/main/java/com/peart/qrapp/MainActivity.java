@@ -3,7 +3,9 @@ package com.peart.qrapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -50,17 +52,31 @@ public class MainActivity extends AppCompatActivity {
         generateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Get the data from the selfInfo activity
-                //Intent intent = getIntent();
-                //Bundle contact = intent.getExtras();
-
+                SharedPreferences contactSharedPreference = getSharedPreferences(SelfInfo.MY_CONTACT,MODE_PRIVATE);
                 Bundle contact = new Bundle();
                 contact.putString("BEGIN","VCARD");
-                contact.putString("name", "Matthew Peart");
-                contact.putString("postal","126 calf pasture ln");
-                contact.putString("email", "matthewpeart@hotmail.com");
-                ;
 
+              if(contactSharedPreference.contains("name")){
+                  contact.putString("name",contactSharedPreference.getString("name","John Doe") );
+                  if(contactSharedPreference.contains("email")){
+                      contact.putString("email",contactSharedPreference.getString("email",null) );
+                  }
+                  if(contactSharedPreference.contains("address")){
+                      contact.putString("postal",contactSharedPreference.getString("address",null) );
+                  }
+                  if(contactSharedPreference.contains("phone")){
+                      contact.putString("mobile",contactSharedPreference.getString("phone",null) );
+                  }
+              }
+              else{
+                  Toast toast = Toast.makeText(getApplicationContext(),"Update 'My Info' first!",Toast.LENGTH_SHORT);
+                  View view = toast.getView();
+
+                  //To change the Background of Toast
+                  view.setBackgroundColor(Color.RED);
+                toast.show();
+
+              }
                 QRGEncoder qrgEncoder = new QRGEncoder(null, contact, QRGContents.Type.CONTACT,500);
                 Bitmap qrBits = qrgEncoder.getBitmap();
                 qrImage.setImageBitmap(qrBits);

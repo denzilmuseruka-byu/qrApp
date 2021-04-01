@@ -1,18 +1,18 @@
 package com.peart.qrapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SelfInfo extends AppCompatActivity {
-
- public static final String MY_CONTACT = "MyContactDetails";
     EditText name,phone,email,address;
+    public static final String MY_CONTACT = "MyContactDetails";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,7 @@ public class SelfInfo extends AppCompatActivity {
         saveExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // save my contact details
                 SharedPreferences contactSharedPreference = getSharedPreferences(MY_CONTACT,MODE_PRIVATE);
                 SharedPreferences.Editor contactEditor = contactSharedPreference.edit();
                 contactEditor.putString("name",name.getText().toString());
@@ -36,7 +37,7 @@ public class SelfInfo extends AppCompatActivity {
                 contactEditor.putString("address",address.getText().toString());
                 contactEditor.putString("phone",phone.getText().toString());
                 contactEditor.apply();
-
+                Toast.makeText(getApplicationContext(),"Contact details updated",Toast.LENGTH_SHORT).show();
 
                 Bundle b = new Bundle();
                 b.putString("name", name.getText().toString());
