@@ -24,6 +24,7 @@ public class Contacts extends AppCompatActivity {
     ArrayList<ContactModel> arrayList = new ArrayList<ContactModel>();
     MainAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class Contacts extends AppCompatActivity {
         // sort by ascending
         String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" ASC";
         // Initialize cursor
-        Cursor cursor = getContentResolver().query(uri,null,null,null,sort);
+        Cursor cursor = getContentResolver().query(uri,null,null,null, sort);
 
         // check condition
         if(cursor.getCount() > 0) {

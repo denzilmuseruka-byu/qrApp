@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 
 import com.google.zxing.WriterException;
+import com.google.zxing.client.result.VCardResultParser;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -18,8 +22,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
 import static android.content.ClipData.newIntent;
 
 public class MainActivity extends AppCompatActivity {
-    EditText qrvalue;
-    Button generateBtn,myContactInfo, scanBtn, contactsBtn;
+    Button generateBtn, scanBtn, contactsBtn, selfInfoBtn;
     ImageView qrImage;
 
     @Override
@@ -28,48 +31,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //initialize values
-        qrvalue = findViewById(R.id.qrInput);
+        selfInfoBtn = findViewById(R.id.editSelf);
         generateBtn = findViewById(R.id.genButton);
         scanBtn = findViewById(R.id.scanBtn);
-        qrImage = findViewById(R.id.qrPlaceHolder);
         contactsBtn = findViewById(R.id.contactsBtn);
-        myContactInfo = findViewById(R.id.myContactBtn);
+
+        qrImage = findViewById(R.id.qrPlaceHolder);
+
+
+        selfInfoBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SelfInfo.class));
+            }
+        });
 
         generateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String data = qrvalue.getText().toString();
-                //Contact contactInfo = getContact(find(Matt));
+                //Get the data from the selfInfo activity
+                //Intent intent = getIntent();
+                //Bundle contact = intent.getExtras();
 
-                if(data.isEmpty()){
-                    qrvalue.setError("Value Required.");
-                }else {
-                    QRGEncoder qrgEncoder = new QRGEncoder(data, null,QRGContents.Type.TEXT,500);
-                    Bitmap qrBits = qrgEncoder.getBitmap();
-                    qrImage.setImageBitmap(qrBits);
-                }
+                Bundle contact = new Bundle();
+                contact.putString("BEGIN","VCARD");
+                contact.putString("name", "Matthew Peart");
+                contact.putString("postal","126 calf pasture ln");
+                contact.putString("email", "matthewpeart@hotmail.com");
+                ;
 
+                QRGEncoder qrgEncoder = new QRGEncoder(null, contact, QRGContents.Type.CONTACT,500);
+                Bitmap qrBits = qrgEncoder.getBitmap();
+                qrImage.setImageBitmap(qrBits);
             }
         });
+
+
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Scanner.class));
             }
         });
+
         contactsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Contacts.class));
+                startActivity(new Intent(getApplicationContext(), Contacts.class));
             }
         });
-
-        myContactInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyContactInfo.class));
-            }
-        });
-
     }
 }
+

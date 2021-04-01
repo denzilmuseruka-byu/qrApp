@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +16,8 @@ import com.google.zxing.Result;
 public class Scanner extends AppCompatActivity {
     CodeScanner codeScanner;
     CodeScannerView scannerView;
-    TextView resultData;
+    ContactsContract.Contacts myContact;
+    String resultData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,8 @@ public class Scanner extends AppCompatActivity {
         setContentView(R.layout.activity_scanner);
         scannerView = findViewById(R.id.scanner_view);
         codeScanner = new CodeScanner(this, scannerView);
-        resultData = findViewById(R.id.resultsQR);
+        resultData = "This is to make it work?";
+
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -32,7 +35,7 @@ public class Scanner extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        resultData.setText(result.getText());
+                        resultData = result.getText().toString();
                     }
                 });
             }
